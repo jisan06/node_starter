@@ -9,17 +9,22 @@ exports.createStudent = (req, res) => {
     res.render('student/create');
 }
 exports.saveStudent = async (req, res) => {
-    const student = new Student({
-        id: uuidv4(),
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        phone: req.body.phone,
-        email: req.body.email,
-    });
-    await student.save();
-    res.status(201).json({
-        message: "user is created",
-    })
+    try {
+        const student = new Student({
+            id: uuidv4(),
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            phone: req.body.phone,
+            email: req.body.email,
+        });
+        await student.save();
+        res.status(201).json({
+            message: "user is created",
+        })
+    }catch (error) {
+        res.status(500).json(error.message)
+    }
+
 }
 exports.editStudent = (req, res) => {
     res.render('student/edit');

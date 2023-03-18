@@ -3,28 +3,45 @@ const mongoose = require('mongoose');
 const studentSchema = mongoose.Schema({
     id: {
         type: String,
-        require: true
+        required: true
     },
     first_name: {
         type: String,
-        require: true,
+        required: true,
         max: 255,
+        trim: true
     },
     last_name: {
         type: String,
-        require: true,
+        required: true,
         max: 255,
     },
     phone: {
         type: Number,
-        require: true,
+        required: true,
         maxLength: 11,
     },
     email: {
         type: String,
-        require: true,
+        required: [true, "The email is required"],
         max: 255,
-    },
+        validate:
+            [
+                {
+                    validator: async function (email) {
+                        const student = await this.constructor.findOne({ email });
+                        if(student) return false;
+                    },
+                    message: (props) => `${props.value} is already exist!`
+                },
+                {
+                    validator: async function (email) {
+                        if(email.length > 100) return false;
+                    },
+                    message: (props) => `${props.value} is too long`
+                },
+            ]
+        },
     createdOn: {
         type: Date,
         default: Date.now(),
