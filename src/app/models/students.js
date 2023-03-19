@@ -7,18 +7,18 @@ const studentSchema = mongoose.Schema({
     },
     first_name: {
         type: String,
-        required: true,
+        required: [true, "First name is required"],
         max: 255,
         trim: true
     },
     last_name: {
         type: String,
-        required: true,
+        required: [true, "Last name is required"],
         max: 255,
     },
     phone: {
         type: Number,
-        required: true,
+        required: [true, "Phone is required"],
         maxLength: 11,
     },
     email: {

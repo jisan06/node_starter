@@ -2,6 +2,10 @@ const {v4: uuidv4} = require("uuid");
 const path = require("path");
 const Student = require("./../models/students");
 
+const viewPath = (fileName) => {
+    return 'student/' + fileName;
+}
+
 exports.studentList = (req, res) => {
     res.render('student/index');
 }
@@ -18,11 +22,19 @@ exports.saveStudent = async (req, res) => {
             email: req.body.email,
         });
         await student.save();
-        res.status(201).json({
-            message: "user is created",
-        })
+        req.flash('success', 'Student is created')
+        res.redirect('/students')
+
     }catch (error) {
-        res.status(500).json(error.message)
+        let errors = {};
+        Object.keys(error.errors).forEach((key) => {
+            errors[key] = error.errors[key].message;
+        });
+        if(!errors) {
+            errors = error.message;
+        }
+        req.session.errors = errors;
+        res.redirect('back');
     }
 
 }
