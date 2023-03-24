@@ -1,5 +1,7 @@
 const {v4: uuidv4} = require("uuid");
+const { body, validationResult } = require('express-validator');
 const path = require("path");
+const errorFormatter = require('../helper/errorValidationFormatter')
 const Student = require("./../models/students");
 
 const viewPath = (fileName) => {
@@ -7,15 +9,31 @@ const viewPath = (fileName) => {
 }
 
 exports.studentList = (req, res) => {
-    res.render('student/index');
+    Student.find()
+        .then(students => {
+            res.render(viewPath('index'), {students});
+        })
+        .catch((error) => {
+            console.log(error)
+            res.json({
+                'message': 'Error occurred'
+            })
+        })
 }
 exports.createStudent = (req, res) => {
-    res.render('student/create');
+    res.render(viewPath('create'));
 }
 exports.saveStudent = async (req, res) => {
     try {
+        const errors = validationResult(req).formatWith(errorFormatter);
+        if (!errors.isEmpty()) {
+            const data = {
+                errors : errors.mapped(),
+                formData : req.body,
+            }
+            return res.render(viewPath('create'), data);
+        }
         const student = new Student({
-            id: uuidv4(),
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             phone: req.body.phone,
@@ -26,14 +44,7 @@ exports.saveStudent = async (req, res) => {
         res.redirect('/students')
 
     }catch (error) {
-        let errors = {};
-        Object.keys(error.errors).forEach((key) => {
-            errors[key] = error.errors[key].message;
-        });
-        if(!errors) {
-            errors = error.message;
-        }
-        req.session.errors = errors;
+        req.flash('error', error.message);
         res.redirect('back');
     }
 

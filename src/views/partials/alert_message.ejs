@@ -1,0 +1,12 @@
+<% if(flash.success) { %>
+    <div class="alert alert-success alert-dismissible fade show">
+        <%= flash.success %>
+        <button class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+    </div>
+<% } %>
+<% if(flash.error) { %>
+    <div class="alert alert-warning alert-dismissible fade show">
+        <%= flash.error %>
+        <button class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+    </div>
+<% } %>

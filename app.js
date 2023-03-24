@@ -12,22 +12,25 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/src/views'));
 app.use(expressLayouts);
 app.set('layout', path.join(__dirname, '/src/views'));
-app.use(express.static(path.join(__dirname, 'src/public')));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
-app.use(session({
-    secret:'geeksforgeeks',
-    cookie: {maxAge: 60000},
-    saveUninitialized: false,
-    resave: false
-}));
+const commonConfig = [
+    express.static(path.join(__dirname, 'src/public')),
+    bodyParser.urlencoded({ extended: false }),
+    bodyParser.json(),
+    session({
+        secret:'geeksforgeeks',
+        cookie: {maxAge: 60000},
+        saveUninitialized: false,
+        resave: false
+    }),
+    flash()
+]
 
-app.use(flash());
+app.use(commonConfig);
 app.use(function(req, res, next){
-    res.locals.message = req.flash();
-    res.locals.errors = req.session.errors;
-    req.session.errors = '';
+    res.locals.flash = req.flash();
+    res.locals.errors = '';
+    res.locals.formData = '';
     next();
 });
 
