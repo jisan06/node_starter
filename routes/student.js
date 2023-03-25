@@ -1,10 +1,10 @@
 const express = require('express');
 require('express-group-routes');
 const router = express.Router();
-const {formValidation} = require('./../app/validations/student')
+const {formValidation} = require('../app/validations/student')
 const {
         studentList, createStudent, saveStudent, editStudent, updateStudent, deleteStudent
-    } = require('./../app/controllers/student');
+    } = require('../app/controllers/student');
 
 router.group("/students", (router) => {
     router.get("/", studentList)

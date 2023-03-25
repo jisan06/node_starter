@@ -1,5 +1,5 @@
 const { body } = require('express-validator');
-const Student = require("./../models/students");
+const Student = require("../models/students");
 exports.formValidation = [
     body('first_name').not().isEmpty().withMessage('First name is required'),
     body('last_name').not().isEmpty().withMessage('Last name is required'),

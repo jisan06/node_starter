@@ -5,16 +5,16 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const bodyParser = require('body-parser')
 const app = express();
-const routes = require('./src/routes/index');
-const {homePage} = require('./src/app/controllers/index');
+const routes = require('./routes/index');
+const {homePage} = require('./app/controllers/index');
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '/src/views'));
+app.set('views', path.join(__dirname, '/views'));
 app.use(expressLayouts);
-app.set('layout', path.join(__dirname, '/src/views'));
+app.set('layout', path.join(__dirname, '/views'));
 
 const commonConfig = [
-    express.static(path.join(__dirname, 'src/public')),
+    express.static(path.join(__dirname, 'public')),
     bodyParser.urlencoded({ extended: false }),
     bodyParser.json(),
     session({
