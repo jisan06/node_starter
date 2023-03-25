@@ -30,7 +30,6 @@ app.use(commonConfig);
 app.use(function(req, res, next){
     res.locals.flash = req.flash();
     res.locals.errors = '';
-    res.locals.formData = '';
     next();
 });
 
