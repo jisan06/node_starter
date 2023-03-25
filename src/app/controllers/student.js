@@ -49,11 +49,36 @@ exports.saveStudent = async (req, res) => {
     }
 
 }
-exports.editStudent = (req, res) => {
-    res.render('student/edit');
+exports.editStudent = async (req, res) => {
+    const id = req.params.id;
+    const student = await Student.findOne({_id: id});
+    res.render(viewPath('edit'), {student : student});
 }
-exports.updateStudent = (req, res) => {
+exports.updateStudent = async (req, res) => {
+    const id = req.params.id;
+    const student = await Student.findOne({_id: id});
+    try {
+        const errors = validationResult(req).formatWith(errorFormatter);
+        if (!errors.isEmpty()) {
+            const data = {
+                errors : errors.mapped(),
+                student : req.body,
+            }
+            return res.render(viewPath('edit'), data);
+        }
+        await student.updateOne({
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            phone: req.body.phone,
+            email: req.body.email,
+        });
+        req.flash('success', 'Student is updated')
+        res.redirect('/students')
 
+    }catch (error) {
+        req.flash('error', error.message);
+        res.redirect('back');
+    }
 }
 exports.deleteStudent = (req, res) => {
 

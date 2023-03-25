@@ -1,7 +1,7 @@
 <%- contentFor('content') %>
 <div class="row mb-3">
     <div class="col-md-12">
-        <h3>Create Student</h3>
+        <h3>Edit Student</h3>
     </div>
 </div>
 <div class="row">
@@ -11,7 +11,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="first-name">First Name</label>
-                        <input type="text" name="first_name" value="<%= formData.first_name ? formData.first_name : '' %>" class="form-control<%=errors && errors.first_name ? ' is-invalid' : ''%>">
+                        <input type="text" name="first_name" value="<%= student.first_name ? student.first_name : '' %>" class="form-control<%=errors && errors.first_name ? ' is-invalid' : ''%>">
                         <% if(errors && errors.first_name) { %>
                             <div class="invalid-feedback">
                                 <%=errors.first_name%>
@@ -22,7 +22,7 @@
                 <div class="col-md-6 mb-3">
                     <div class="form-group">
                         <label for="last-name">Last Name</label>
-                        <input type="text" name="last_name" value="<%= formData.last_name ? formData.last_name : '' %>" class="form-control<%=errors && errors.last_name ? ' is-invalid' : ''%>">
+                        <input type="text" name="last_name" value="<%= student.last_name ? student.last_name : '' %>" class="form-control<%=errors && errors.last_name ? ' is-invalid' : ''%>">
                         <% if(errors && errors.last_name) { %>
                             <div class="invalid-feedback">
                                 <%=errors.last_name%>
@@ -33,7 +33,7 @@
                 <div class="col-md-6 mb-3">
                     <div class="form-group">
                         <label for="phone">Phone Number</label>
-                        <input type="number" name="phone" value="<%= formData.phone ? formData.phone : '' %>"  class="form-control<%=errors && errors.phone ? ' is-invalid' : ''%>">
+                        <input type="number" name="phone" value="<%= student.phone ? student.phone : '' %>"  class="form-control<%=errors && errors.phone ? ' is-invalid' : ''%>">
                         <% if(errors && errors.phone) { %>
                             <div class="invalid-feedback">
                                 <%=errors.phone%>
@@ -44,7 +44,7 @@
                 <div class="col-md-6 mb-3">
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" name="email" value="<%= formData.email ? formData.email : '' %>"  class="form-control<%=errors && errors.email ? ' is-invalid' : ''%>">
+                        <input type="email" name="email" value="<%= student.email ? student.email : '' %>"  class="form-control<%=errors && errors.email ? ' is-invalid' : ''%>">
                         <% if(errors && errors.email) { %>
                             <div class="invalid-feedback">
                                 <%=errors.email%>
