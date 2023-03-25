@@ -80,6 +80,13 @@ exports.updateStudent = async (req, res) => {
         res.redirect('back');
     }
 }
-exports.deleteStudent = (req, res) => {
-
+exports.deleteStudent = async (req, res) => {
+    try {
+        await Student.findOneAndRemove({_id: req.params.id})
+        req.flash('success', 'Student is deleted')
+        res.redirect('/students')
+    }catch (e) {
+        req.flash('error', error.message);
+        res.redirect('back');
+    }
 }
