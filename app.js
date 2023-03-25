@@ -4,14 +4,14 @@ const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const flash = require('connect-flash');
 const bodyParser = require('body-parser')
-const app = express();
 const routes = require('./routes/index');
 const {homePage} = require('./app/controllers/index');
+const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 app.use(expressLayouts);
-app.set('layout', path.join(__dirname, '/views'));
+app.set('layout', 'layout/master');
 
 const commonConfig = [
     express.static(path.join(__dirname, 'public')),
