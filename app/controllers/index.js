@@ -1,4 +1,4 @@
 const path = require("path")
 exports.homePage = (req, res) => {
-    res.render('home');
+    res.render('admin/home');
 }

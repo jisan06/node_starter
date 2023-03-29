@@ -5,13 +5,12 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const bodyParser = require('body-parser')
 const routes = require('./routes/index');
-const {homePage} = require('./app/controllers/index');
 const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 app.use(expressLayouts);
-app.set('layout', 'layout/master');
+app.set('layout', 'admin/layout/master');
 
 const commonConfig = [
     express.static(path.join(__dirname, 'public')),
@@ -34,7 +33,6 @@ app.use(function(req, res, next){
 });
 
 app.use('/', routes);
-app.get("/", homePage)
 
 app.use((req, res, next) => {
     res.status(404).json({

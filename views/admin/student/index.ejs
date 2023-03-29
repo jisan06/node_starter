@@ -1,7 +1,7 @@
 <%-contentFor('master') %>
 <div class="row">
     <div class="col-md-12 text-end pb-3">
-        <a href="/students/create" class="btn btn-primary">Create Student</a>
+        <a href="/admin/students/create" class="btn btn-primary">Create Student</a>
     </div>
     <div class="col-md-12">
         <table class="table table-bordered">
@@ -24,8 +24,8 @@
                     <td><%= student.phone %></td>
                     <td><%= student.email %></td>
                     <td>
-                        <a href="/students/edit/<%= student.id %>" class="btn btn-info">Edit</a>
-                        <a href="/students/delete/<%= student.id %>" class="btn btn-danger">Delete</a>
+                        <a href="/admin/students/edit/<%= student.id %>" class="btn btn-info">Edit</a>
+                        <a href="/admin/students/delete/<%= student.id %>" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             <% } %>

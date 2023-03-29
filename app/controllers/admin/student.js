@@ -1,10 +1,10 @@
 const {v4: uuidv4} = require("uuid");
 const { body, validationResult } = require('express-validator');
-const errorFormatter = require('../helper/errorValidationFormatter')
-const Student = require("../models/students");
+const errorFormatter = require('../../helper/errorValidationFormatter')
+const Student = require("../../models/students");
 
 const view = (fileName) => {
-    return 'student/' + fileName;
+    return 'admin/student/' + fileName;
 }
 
 exports.studentList = (req, res) => {
@@ -40,7 +40,7 @@ exports.saveStudent = async (req, res) => {
         });
         await student.save();
         req.flash('success', 'Student is created')
-        res.redirect('/students')
+        res.redirect('/admin/students')
 
     }catch (error) {
         req.flash('error', error.message);
@@ -72,7 +72,7 @@ exports.updateStudent = async (req, res) => {
             email: req.body.email,
         });
         req.flash('success', 'Student is updated')
-        res.redirect('/students')
+        res.redirect('/admin/students')
 
     }catch (error) {
         req.flash('error', error.message);
@@ -83,7 +83,7 @@ exports.deleteStudent = async (req, res) => {
     try {
         await Student.findOneAndRemove({_id: req.params.id})
         req.flash('success', 'Student is deleted')
-        res.redirect('/students')
+        res.redirect('/admin/students')
     }catch (e) {
         req.flash('error', error.message);
         res.redirect('back');
