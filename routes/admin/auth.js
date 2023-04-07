@@ -1,12 +1,16 @@
 const express = require('express');
+require('express-group-routes');
 const router = express.Router();
+const {signUpValidation, loginValidation} = require('../../app/validations/auth')
 const {register, registerSubmit} = require('../../app/controllers/admin/auth/register');
-const {login} = require('../../app/controllers/admin/auth/login');
+const {login, loginSubmit} = require('../../app/controllers/admin/auth/login');
 const {passwordReset} = require('../../app/controllers/admin/auth/password_reset');
+const {isUnAuthenticated} = require('./../../app/middleware/authMiddlware');
 
-router.get("/register", register);
-router.post("/register", registerSubmit);
-router.get("/login", login);
-router.get("/password-reset", passwordReset);
+router.get("/register", isUnAuthenticated, register);
+router.post("/register", isUnAuthenticated, signUpValidation, registerSubmit);
+router.get("/login", isUnAuthenticated,login);
+router.post("/login", isUnAuthenticated, loginValidation, loginSubmit);
+router.get("/password-reset", isUnAuthenticated, passwordReset);
 
 module.exports = router;

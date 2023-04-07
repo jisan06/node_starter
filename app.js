@@ -2,10 +2,13 @@ const express = require('express');
 const path = require("path")
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
+const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
 const bodyParser = require('body-parser')
 const routes = require('./routes/index');
 const app = express();
+const setLocals = require('./app/middleware/setLocals');
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
@@ -17,20 +20,18 @@ const commonConfig = [
     bodyParser.urlencoded({ extended: false }),
     bodyParser.json(),
     session({
-        secret:'geeksforgeeks',
-        cookie: {maxAge: 60000},
-        saveUninitialized: false,
-        resave: false
+        secret:'jsjisan',
+        saveUninitialized: true,
+        resave: false,
+        store: new MongoStore({
+            mongooseConnection: mongoose.connection,
+            ttl: 500 * 60 * 60 * 2
+        })
     }),
-    flash()
-]
-
+    flash(),
+    setLocals()
+];
 app.use(commonConfig);
-app.use(function(req, res, next){
-    res.locals.flash = req.flash();
-    res.locals.errors = '';
-    next();
-});
 
 app.use('/', routes);
 

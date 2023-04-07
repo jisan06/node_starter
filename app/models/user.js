@@ -10,14 +10,16 @@ const userSchema = mongoose.Schema({
     phone: {
         type: Number,
         maxLength: 11,
-        unique: true
+        required: false,
+        unique: true,
+        sparse: true
     },
     email: {
         type: String,
         required: [true, "The email is required"],
         max: 255,
         unique: true
-        },
+    },
     password: {
         type: String,
         required: [true, "The password is required"],
@@ -29,4 +31,12 @@ const userSchema = mongoose.Schema({
     },
 });
 
+userSchema.index(
+    {
+        phone: 1
+    },
+    {
+        unique: true,
+        sparse: true
+    });
 module.exports = mongoose.model("User", userSchema);
