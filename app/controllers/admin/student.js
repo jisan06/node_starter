@@ -1,5 +1,4 @@
-const {v4: uuidv4} = require("uuid");
-const { body, validationResult } = require('express-validator');
+const { validationResult } = require('express-validator');
 const errorFormatter = require('../../helper/errorValidationFormatter')
 const Student = require("../../models/students");
 
