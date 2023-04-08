@@ -1,33 +1,35 @@
 <%-contentFor('master') %>
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Student List</h3>
+        <h3 class="card-title">User List</h3>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-        <a href="/admin/students/create" class="btn btn-primary mb-3">Create Student</a>
+        <a href="/admin/users/create" class="btn btn-primary mb-3">Create User</a>
         <table id="dataTable" class="table table-bordered table-striped">
             <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Email</th>
-                <th scope="col" class="text-center">Action</th>
-            </tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Email</th>
+                    <th scope="col" class="text-center">Action</th>
+                </tr>
             </thead>
             <tbody>
-                <% for (let student of students) { %>
+                <% for (let user of users) { %>
                     <tr>
                         <th scope="row">1</th>
-                        <td><%= student.first_name %></td>
-                        <td><%= student.last_name %></td>
-                        <td><%= student.phone %></td>
-                        <td><%= student.email %></td>
+                        <td><%= user.name %></td>
+                        <td><%= user.phone %></td>
+                        <td><%= user.email %></td>
                         <td class="text-center">
-                            <a href="/admin/students/edit/<%= student.id %>" class="btn btn-info">Edit</a>
-                            <a href="/admin/students/delete/<%= student.id %>" class="btn btn-danger">Delete</a>
+                            <a href="/admin/users/edit/<%= user.id %>" class="btn btn-info">
+                               <i class="fas fa-pencil-alt"></i> Edit
+                            </a>
+                            <a href="/admin/users/delete/<%= user.id %>" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
                         </td>
                     </tr>
                 <% } %>
@@ -52,4 +54,3 @@
         "autoWidth": false,
     });
 </script>
-

@@ -1,8 +1,7 @@
 const { body } = require('express-validator');
-const Student = require("../models/students");
+const User = require("../models/user");
 exports.formValidation = [
-    body('first_name').not().isEmpty().withMessage('First name is required'),
-    body('last_name').not().isEmpty().withMessage('Last name is required'),
+    body('name').not().isEmpty().withMessage('Full name is required'),
     body('phone')
         .not()
         .isEmpty()
@@ -22,7 +21,7 @@ exports.formValidation = [
             if(req.params && req.params.id) {
                 field._id = {$ne: req.params.id};
             }
-            const student = await Student.findOne(field);
+            const student = await User.findOne(field);
             if(student) return Promise.reject('Email already exist');
         })
 ];

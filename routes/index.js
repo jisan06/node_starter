@@ -3,9 +3,10 @@ require('express-group-routes');
 const router = express.Router();
 const authRouter = express.Router();
 const {homePage} = require('../app/controllers/index');
-const student = require('./admin/student');
 const auth = require('./admin/auth');
-const {isAuthenticated, isUnAuthenticated} = require('./../app/middleware/authMiddlware');
+const student = require('./admin/student');
+const user = require('./admin/user');
+const {isAuthenticated} = require('./../app/middleware/authMiddlware');
 
 router.get("/", (req, res) => {
     res.send('This is home page')
@@ -15,7 +16,7 @@ router.get("/", (req, res) => {
  * Admin routes
  */
 router.use('/admin', auth) //auth routes
-router.use('/admin', isAuthenticated, student)
+router.use('/admin', isAuthenticated, student, user)
 
 router.get("/admin", homePage).name
 
