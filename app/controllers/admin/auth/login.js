@@ -41,3 +41,8 @@ exports.loginSubmit = async (req, res) => {
         res.redirect('back');
     }
 }
+
+exports.logout = (req, res) => {
+    req.session.destroy();
+    return res.redirect('/admin/login');
+}
