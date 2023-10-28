@@ -1,7 +1,5 @@
 const express = require('express');
-require('express-group-routes');
 const router = express.Router();
-const authRouter = express.Router();
 const {homePage} = require('../app/controllers/index');
 const auth = require('./admin/auth');
 const student = require('./admin/student');

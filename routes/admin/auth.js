@@ -1,5 +1,4 @@
 const express = require('express');
-require('express-group-routes');
 const router = express.Router();
 const {signUpValidation, loginValidation} = require('../../app/validations/auth')
 const {register, registerSubmit} = require('../../app/controllers/admin/auth/register');
